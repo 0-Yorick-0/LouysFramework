@@ -18,7 +18,15 @@ final class FrontPageController
 
 	public function show(Request $request): Response
 	{
-		$content = $this->templateRenderer->render('FrontPage.html.twig');
+		$submissions = [
+			['url' => 'http://qwant.com', 'title' => 'Qwant'],
+			['url' => 'http://google.com', 'title' => 'Evil for dummies<script>alert("Damned")</script>'],
+		];
+
+		$content = $this->templateRenderer->render(
+			'FrontPage.html.twig',
+			['submissions' => $submissions
+		]);
 		return new Response($content);
 	}
 }
