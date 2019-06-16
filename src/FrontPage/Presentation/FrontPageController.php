@@ -2,31 +2,32 @@
 
 namespace SocialNews\FrontPage\Presentation;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 use SocialNews\Framework\Rendering\TemplateRenderer;
+use SocialNews\FrontPage\Application\SubmissionsQuery;
+use Symfony\Component\HttpFoundation\Response;
 
 final class FrontPageController
 {
 	private $templateRenderer;
+	private $submissionsQuery;
 
-	public function __construct(TemplateRenderer $templateRenderer)
-	{
+	public function __construct(
+		TemplateRenderer $templateRenderer,
+		SubmissionsQuery $submissionsQuery
+	) {
 		$this->templateRenderer = $templateRenderer;
+		$this->submissionsQuery = $submissionsQuery;
 	}
 
-	public function show(Request $request): Response
+	public function show(): Response
 	{
-		$submissions = [
-			['url' => 'http://qwant.com', 'title' => 'Qwant'],
-			['url' => 'http://google.com', 'title' => 'Evil for dummies<script>alert("Damned")</script>'],
-		];
-
 		$content = $this->templateRenderer->render(
-			'FrontPage.html.twig',
-			['submissions' => $submissions
-		]);
+			'FrontPage.html.twig', 
+			[
+				'submissions' => $this->submissionsQuery->execute(),
+			]
+		);
+
 		return new Response($content);
 	}
 }
