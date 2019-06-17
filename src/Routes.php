@@ -16,4 +16,9 @@ return [
 		'/submit',
 		'SocialNews\Submission\Presentation\SubmissionController#submit'
 	],
+	[
+		'GET',
+		'/register',
+		'SocialNews\User\Presentation\RegistrationController#show'
+	],
 ];
