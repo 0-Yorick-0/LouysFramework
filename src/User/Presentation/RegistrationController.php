@@ -21,7 +21,7 @@ final class RegistrationController
 		TemplateRenderer $templateRenderer,
 		RegisterUserFormFactory $registerUserFormFactory,
 		Session $session,
-		RegisterUserHandler $registerUserHandler,
+		RegisterUserHandler $registerUserHandler
 	) {
 		$this->templateRenderer = $templateRenderer;
 		$this->registerUserFormFactory = $registerUserFormFactory;
