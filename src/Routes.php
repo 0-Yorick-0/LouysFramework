@@ -22,8 +22,13 @@ return [
 		'SocialNews\User\Presentation\RegistrationController#show'
 	],
 	[
+		'GET',
+		'/login',
+		'SocialNews\User\Presentation\LoginController#show'
+	],
+	[
 		'POST',
-		'/register',
-		'SocialNews\User\Presentation\RegistrationController#register'
+		'/login',
+		'SocialNews\User\Presentation\LoginController#logIn'
 	],
 ];

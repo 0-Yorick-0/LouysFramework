@@ -20,6 +20,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use SocialNews\Submission\Domain\SubmissionRepository;
 use SocialNews\Submission\Infrastructure\DbalSubmissionRepository;
 
+use SocialNews\User\Domain\UserRepository;
+use SocialNews\User\Infrastructure\DbalUserRepository;
+
+use SocialNews\User\Application\NicknameTakenQuery;
+use SocialNews\User\Infrastructure\DbalNicknameTakenQuery;
+
 
 $injector = new Injector();
 
@@ -44,7 +50,7 @@ $injector->share(Connection::class);
 
 //Déclaration des classes sans factory ayant besoin de params dans le construct
 $injector->define(
-	TemplateDirectory::class, 
+	TemplateDirectory::class,
 	[':rootDirectory' => ROOT_DIR]
 );
 $injector->define(
@@ -60,6 +66,10 @@ $injector->alias(TokenStorage::class, SymfonySessionTokenStorage::class);
 $injector->alias(SessionInterface::class, Session::class);
 
 $injector->alias(SubmissionRepository::class, DbalSubmissionRepository::class);
+
+$injector->alias(UserRepository::class, DbalUserRepository::class);
+
+$injector->alias(NicknameTakenQuery::class, DbalNicknameTakenQuery::class);
 
 //empêche le DI de créer une nouvelle instance à chaque fois que l'objet est injecté. La même instance est utilisée pour toutes les classes utilisant cette dépendance.
 $injector->share(SubmissionsQuery::class);
