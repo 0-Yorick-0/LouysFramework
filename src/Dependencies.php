@@ -5,6 +5,9 @@ use SocialNews\Framework\Rendering\TemplateRenderer;
 use SocialNews\Framework\Rendering\TwigTemplateRendererFactory;
 use SocialNews\Framework\Rendering\TemplateDirectory;
 
+use SocialNews\Framework\Rbac\User;
+use SocialNews\Framework\Rbac\SymfonySessionCurrentUserFactory;
+
 use SocialNews\FrontPage\Application\SubmissionsQuery;
 use SocialNews\FrontPage\Infrastructure\DbalSubmissionsQuery;
 
@@ -37,10 +40,19 @@ $injector->delegate(
 		return $factory->create();
 	}
 );
+
 $injector->delegate(
 	Connection::class,
 	function () use ($injector): Connection {
 		$factory = $injector->make(ConnectionFactory::class);
+		return $factory->create();
+	}
+);
+
+$injector->delegate(
+	User::class,
+	function () use ($injector): User {
+		$factory = $injector->make(SymfonySessionCurrentUserFactory::class);
 		return $factory->create();
 	}
 );
